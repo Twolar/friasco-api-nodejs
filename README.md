@@ -1,11 +1,12 @@
-# friasco
+# Friasco
 
 Single Repo
 - Friasco React SPA
 - Friasco API
 
+---
 
-Get Started Instructions
+## Get Started Instructions
 
 friasco-api
 1. In terminal navigate to friasco-api directory
