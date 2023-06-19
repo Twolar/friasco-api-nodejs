@@ -1,5 +1,9 @@
 # friasco
 
+Single Repo
+- Friasco React SPA
+- Friasco API
+
 
 Get Started Instructions
 
