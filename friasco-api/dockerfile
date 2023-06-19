@@ -1,0 +1,19 @@
+# Base image
+FROM node:20-alpine
+
+# Create working directory in container
+RUN mkdir -p /usr/src/app
+# Specify the working directory in container
+WORKDIR /usr/src/app
+# Copy project files into container working directory
+COPY . .
+
+# Install packages
+RUN npm install
+
+# Expose the port to use
+EXPOSE 8000
+# This is the port to map to in cloud, i.e. 80:8000
+
+# Start application command
+CMD [ "node", "server.js" ]
