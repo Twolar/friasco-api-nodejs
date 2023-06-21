@@ -12,6 +12,9 @@
 <!-- PROJECT LOGO -->
 # FRIASCO
 
+Learning project for Javascript related technologies 
+
+---
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -29,18 +32,12 @@
   </ol>
 </details>
 
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-Learning project for Javascript related technologies 
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+---
 
 ### Built With
 
-NodeJS
-ExpressJS
+- NodeJS
+- ExpressJS
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -54,7 +51,7 @@ To get a local copy up and running follow the steps below.
 
 NPM installed and setup
 
-## Get Started Instructions
+### Get Started Instructions
 
 API
 1. In terminal navigate to friasco-api directory
