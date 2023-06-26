@@ -3,28 +3,28 @@ module.exports = {
     browser: true,
     commonjs: true,
     es2021: true,
-    'jest/globals': true
+    'jest/globals': true,
   },
   extends: [
-    'standard',
-    'plugin:jest/recommended'
+    'airbnb',
+    'plugin:jest/recommended',
   ],
   overrides: [
     {
       env: {
-        node: true
+        node: true,
       },
       files: [
-        '.eslintrc.{js,cjs}'
+        '.eslintrc.{js,cjs}',
       ],
       parserOptions: {
-        sourceType: 'script'
-      }
-    }
+        sourceType: 'script',
+      },
+    },
   ],
   parserOptions: {
-    ecmaVersion: 'latest'
+    ecmaVersion: 'latest',
   },
   rules: {
-  }
-}
+  },
+};
