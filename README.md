@@ -70,7 +70,7 @@ API
 ## Contact
 
 Taylor Bennett
-- [LinkedIn](https://www.linkedin.com/in/t4ybennett)x
+- [LinkedIn](https://www.linkedin.com/in/t4ybennett)
 
 Filip Popovich
 - [LinkedIn](https://nz.linkedin.com/in/filip-popovich-428194150)
