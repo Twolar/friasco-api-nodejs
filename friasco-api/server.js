@@ -1,17 +1,20 @@
 require('dotenv').config();
 const express = require('express');
 const { logger } = require('./src/utility/logger');
-const database = require('./src/utility/database');
+
+const apiBase = require('./src/api');
 
 const app = express();
 
 const port = process.env.PORT || 8000;
 
-app.get('/', (req, res) => {
-  res.send('Friasco Hello World!');
-});
+app.use(express.json());
+app.use('/api/v1', apiBase);
+app.use(express.urlencoded());
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Friasco Application listening on ${port}`);
   logger.info(`Friasco Application listening on ${port}`);
 });
+
+module.exports = server;

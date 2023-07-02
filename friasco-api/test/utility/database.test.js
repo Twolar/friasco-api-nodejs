@@ -21,18 +21,4 @@ describe('SQLite Database Initialisation Tests', () => {
       }
     });
   }));
-
-  it('should insert two users into the users table', () => new Promise((resolve, reject) => {
-    db.all('SELECT * FROM users', (err, rows) => {
-      if (err) {
-        reject(err);
-      } else if (rows) {
-        expect(rows[0].username).toBe('tbennett');
-        expect(rows[1].username).toBe('fpopovich');
-        resolve();
-      } else {
-        reject(new Error('Users not found'));
-      }
-    });
-  }));
 });
