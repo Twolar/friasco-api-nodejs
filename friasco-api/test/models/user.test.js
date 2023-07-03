@@ -1,7 +1,7 @@
 const User = require('../../src/models/user');
 const db = require('../../src/utility/database');
 
-describe('User model tests', () => {
+describe('User Model', () => {
   beforeAll(async () => {
     process.env.NODE_ENV = 'test';
     return db.initialize();

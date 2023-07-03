@@ -48,8 +48,7 @@ class User {
         if (error) {
           reject(error);
         } else {
-          const userId = this.lastID;
-          resolve(userId);
+          resolve(this.lastID);
         }
       });
     });
@@ -58,11 +57,11 @@ class User {
   static async updateById(id, email, username, password) {
     return new Promise((resolve, reject) => {
       const query = 'UPDATE users SET email = ?, username = ?, password = ? WHERE id = ?';
-      db.run(query, [email, username, password, id], (error) => {
+      db.run(query, [email, username, password, id], function (error) {
         if (error) {
           reject(error);
         } else {
-          resolve(id);
+          resolve(this.changes);
         }
       });
     });
@@ -71,11 +70,11 @@ class User {
   static async deleteById(id) {
     return new Promise((resolve, reject) => {
       const query = 'DELETE FROM users WHERE id = ?';
-      db.run(query, id, (error) => {
+      db.run(query, id, function (error) {
         if (error) {
           reject(error);
         } else {
-          resolve(id);
+          resolve(this.changes);
         }
       });
     });

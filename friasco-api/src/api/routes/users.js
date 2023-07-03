@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
   try {
     const users = await User.getAll();
 
-    if (users) {
+    if (users.length > 0) {
       res.status(200).json({
         message: 'success',
         users,
@@ -50,8 +50,8 @@ router.get('/:id', async (req, res, next) => {
       });
     } else {
       res.status(404).json({
-        message: 'not found'
-      })
+        message: 'not found',
+      });
     }
   } catch (error) {
     res.status(400).json({
@@ -67,16 +67,16 @@ router.get('/:id', async (req, res, next) => {
 router.post('/new', async (req, res) => {
   logger.info('Users::NewUser - Initiated');
   try {
-    const userId = await User.createNew(req.body.email, req.body.username, req.body.password);
-    if (userId) {
+    const createdUserId = await User.createNew(req.body.email, req.body.username, req.body.password);
+    if (createdUserId) {
       res.status(201).json({
         message: 'success',
-        userId,
+        id: createdUserId,
       });
     } else {
       res.status(500).json({
-        message: 'internal server error'
-      })
+        message: 'internal server error',
+      });
     }
   } catch (error) {
     res.status(400).json({
@@ -92,17 +92,21 @@ router.post('/new', async (req, res) => {
 router.patch('/:id', async (req, res) => {
   logger.info('Users::UpdateUser - Initiated');
   try {
-    const userId = await User.updateById(req.params.id, req.body.email, req.body.username, req.body.password);
+    const changes = await User.updateById(req.params.id, req.body.email, req.body.username, req.body.password);
 
-    if (userId) {
-      res.status(200).json({
+    if (changes) {
+      res.send({
         message: 'success',
-        userId,
+        changes,
+      });
+    } else if (changes === 0) {
+      res.status(404).json({
+        message: 'not found',
       });
     } else {
       res.status(500).json({
-        message: 'internal server error'
-      })
+        message: 'internal server error',
+      });
     }
   } catch (error) {
     res.status(400).json({
@@ -118,16 +122,21 @@ router.patch('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   logger.info('Users::DeleteUser - Initiated');
   try {
-    const userId = await User.deleteById(req.params.id);
+    const changes = await User.deleteById(req.params.id);
 
-    if (userId) {
-      res.status(200).json({
+    if (changes) {
+      res.send({
         message: 'success',
+        changes,
+      });
+    } else if (changes === 0) {
+      res.status(404).json({
+        message: 'not found',
       });
     } else {
       res.status(500).json({
-        message: 'internal server error'
-      })
+        message: 'internal server error',
+      });
     }
   } catch (error) {
     res.status(400).json({
