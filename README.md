@@ -70,11 +70,9 @@ API
 ## Contact
 
 Taylor Bennett
-- t4ybennett@gmail.com
 - [LinkedIn](https://www.linkedin.com/in/t4ybennett)
 
 Filip Popovich
-- fpop695@gmail.com
 - [LinkedIn](https://nz.linkedin.com/in/filip-popovich-428194150)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
