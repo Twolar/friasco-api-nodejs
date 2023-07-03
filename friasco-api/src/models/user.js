@@ -8,8 +8,6 @@ class User {
     this.password = password;
   }
 
-  // TODO: Investigate SQL injection? Passing as params already helps as escaped, but do we need futher protection?
-
   static async getAll() {
     return new Promise((resolve, reject) => {
       const query = 'SELECT * FROM users';

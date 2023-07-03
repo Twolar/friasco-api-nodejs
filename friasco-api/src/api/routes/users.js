@@ -8,11 +8,6 @@ const router = express.Router();
 // As not looking to reinvent the wheel with user management
 // But should be good enough for now to build everything else we need off of it for mvp...
 
-// TODO: Login endpoint
-// As an exercise could be fun to add:
-// - Password hash/salting
-// - JWT generation & authentication for endpoints
-
 // GetUsers
 router.get('/', async (req, res) => {
   logger.info('Users::GetUsers - Initiated');
