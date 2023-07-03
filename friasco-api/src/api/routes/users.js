@@ -69,10 +69,14 @@ router.post('/new', async (req, res) => {
   try {
     const userId = await User.createNew(req.body.email, req.body.username, req.body.password);
     if (userId) {
-      res.status(200).json({
+      res.status(201).json({
         message: 'success',
         userId,
       });
+    } else {
+      res.status(500).json({
+        message: 'internal server error'
+      })
     }
   } catch (error) {
     res.status(400).json({
@@ -95,6 +99,10 @@ router.patch('/:id', async (req, res) => {
         message: 'success',
         userId,
       });
+    } else {
+      res.status(500).json({
+        message: 'internal server error'
+      })
     }
   } catch (error) {
     res.status(400).json({
@@ -116,6 +124,10 @@ router.delete('/:id', async (req, res) => {
       res.status(200).json({
         message: 'success',
       });
+    } else {
+      res.status(500).json({
+        message: 'internal server error'
+      })
     }
   } catch (error) {
     res.status(400).json({
