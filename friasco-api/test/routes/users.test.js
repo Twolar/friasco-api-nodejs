@@ -57,7 +57,7 @@ describe('User Routes', () => {
         });
       });
 
-      const sql = `DELETE FROM users`;
+      const sql = 'DELETE FROM users';
       const changes = await deleteAllUserRows(sql);
 
       const res = await request(server)
