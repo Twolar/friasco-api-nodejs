@@ -1,23 +1,19 @@
 const express = require('express');
 const { logger } = require('../../utility/logger');
-const User = require('../../models/user');
+const Trip = require('../../models/trip');
 
 const router = express.Router();
 
-// User management/these routes subject to change and is currently acting as a placeholder
-// As not looking to reinvent the wheel with user management
-// But should be good enough for now to build everything else we need off of it for mvp...
-
-// GetUsers
+// GetTrips
 router.get('/', async (req, res) => {
-  logger.info('Users::GetUsers - Initiated');
+  logger.info('Trips::GetTrips - Initiated');
   try {
-    const users = await User.getAll();
+    const trips = await Trip.getAll();
 
-    if (users.length > 0) {
+    if (trips.length > 0) {
       res.status(200).json({
         message: 'success',
-        users,
+        trips,
       });
     } else {
       res.status(204).json();
@@ -26,22 +22,22 @@ router.get('/', async (req, res) => {
     res.status(400).json({
       message: error.message,
     });
-    logger.error(`Users::GetUsers - Failed: ${error}`);
+    logger.error(`Trips::GetTrips - Failed: ${error}`);
     return;
   }
-  logger.info('Users::GetUsers - Finished');
+  logger.info('Trips::GetTrips - Finished');
 });
 
-// GetUser
+// GetTrip
 router.get('/:id', async (req, res) => {
-  logger.info('Users::GetUser - Initiated');
+  logger.info('Trips::GetTrip - Initiated');
   try {
-    const user = await User.getById(req.params.id);
+    const trip = await Trip.getById(req.params.id);
 
-    if (user) {
+    if (trip) {
       res.status(200).json({
         message: 'success',
-        user,
+        trip,
       });
     } else {
       res.status(404).json({
@@ -52,21 +48,23 @@ router.get('/:id', async (req, res) => {
     res.status(400).json({
       message: error.message,
     });
-    logger.error(`Users::GetUser - Failed: ${error}`);
+    logger.error(`Trips::GetTrip - Failed: ${error}`);
     return;
   }
-  logger.info('Users::GetUser - Finished');
+  logger.info('Trips::GetTrip - Finished');
 });
 
-// NewUser
+// NewTrip
 router.post('/new', async (req, res) => {
-  logger.info('Users::NewUser - Initiated');
+  logger.info('Trips::NewTrip - Initiated');
   try {
-    const createdUserId = await User.createNew(req.body.email, req.body.username, req.body.password);
-    if (createdUserId) {
+    const newTripData = new Trip(null, req.body.userId, req.body.location, req.body.startDate, req.body.endDate, req.body.status, req.body.privacyStatus);
+    const createdTripId = await Trip.createNew(newTripData);
+
+    if (createdTripId) {
       res.status(201).json({
         message: 'success',
-        id: createdUserId,
+        id: createdTripId,
       });
     } else {
       res.status(500).json({
@@ -77,17 +75,18 @@ router.post('/new', async (req, res) => {
     res.status(400).json({
       message: error.message,
     });
-    logger.error(`Users::NewUser - Failed: ${error}`);
+    logger.error(`Trips::NewTrip - Failed: ${error}`);
     return;
   }
-  logger.info('Users::NewUser - Finished');
+  logger.info('Trips::NewTrip - Finished');
 });
 
-// UpdateUser
+// UpdateTrip
 router.patch('/:id', async (req, res) => {
-  logger.info('Users::UpdateUser - Initiated');
+  logger.info('Trips::UpdateTrip - Initiated');
   try {
-    const changes = await User.updateById(req.params.id, req.body.email, req.body.username, req.body.password);
+    const updateTripData = new Trip(req.params.id, req.body.userId, req.body.location, req.body.startDate, req.body.endDate, req.body.status, req.body.privacyStatus);
+    const changes = await Trip.updateById(updateTripData);
 
     if (changes) {
       res.send({
@@ -107,17 +106,17 @@ router.patch('/:id', async (req, res) => {
     res.status(400).json({
       message: error.message,
     });
-    logger.error(`Users::UpdateUser - Failed: ${error}`);
+    logger.error(`Trips::UpdateTrip - Failed: ${error}`);
     return;
   }
-  logger.info('Users::UpdateUser - Finished');
+  logger.info('Trips::UpdateTrip - Finished');
 });
 
-// DeleteUser
+// DeleteTrip
 router.delete('/:id', async (req, res) => {
-  logger.info('Users::DeleteUser - Initiated');
+  logger.info('Trips::DeleteTrip - Initiated');
   try {
-    const changes = await User.deleteById(req.params.id);
+    const changes = await Trip.deleteById(req.params.id);
 
     if (changes) {
       res.send({
@@ -137,10 +136,10 @@ router.delete('/:id', async (req, res) => {
     res.status(400).json({
       message: error.message,
     });
-    logger.error(`Users::DeleteUser - Failed: ${error}`);
+    logger.error(`Trips::DeleteTrip - Failed: ${error}`);
     return;
   }
-  logger.info('Users::DeleteUser - Finished');
+  logger.info('Trips::DeleteTrip - Finished');
 });
 
 module.exports = router;
