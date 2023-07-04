@@ -5,7 +5,7 @@ const Trip = require('../../models/trip');
 const router = express.Router();
 
 // GetTrips
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   logger.info('Trips::GetTrips - Initiated');
   try {
     const trips = await Trip.getAll();
@@ -23,13 +23,13 @@ router.get('/', async (req, res) => {
       message: error.message,
     });
     logger.error(`Trips::GetTrips - Failed: ${error}`);
-    return;
+    next(error);
   }
   logger.info('Trips::GetTrips - Finished');
 });
 
 // GetTrip
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res, next) => {
   logger.info('Trips::GetTrip - Initiated');
   try {
     const trip = await Trip.getById(req.params.id);
@@ -49,13 +49,13 @@ router.get('/:id', async (req, res) => {
       message: error.message,
     });
     logger.error(`Trips::GetTrip - Failed: ${error}`);
-    return;
+    next(error);
   }
   logger.info('Trips::GetTrip - Finished');
 });
 
 // NewTrip
-router.post('/new', async (req, res) => {
+router.post('/new', async (req, res, next) => {
   logger.info('Trips::NewTrip - Initiated');
   try {
     const newTripData = new Trip(null, req.body.userId, req.body.location, req.body.startDate, req.body.endDate, req.body.status, req.body.privacyStatus);
@@ -76,13 +76,13 @@ router.post('/new', async (req, res) => {
       message: error.message,
     });
     logger.error(`Trips::NewTrip - Failed: ${error}`);
-    return;
+    next(error);
   }
   logger.info('Trips::NewTrip - Finished');
 });
 
 // UpdateTrip
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', async (req, res, next) => {
   logger.info('Trips::UpdateTrip - Initiated');
   try {
     const updateTripData = new Trip(req.params.id, req.body.userId, req.body.location, req.body.startDate, req.body.endDate, req.body.status, req.body.privacyStatus);
@@ -107,13 +107,13 @@ router.patch('/:id', async (req, res) => {
       message: error.message,
     });
     logger.error(`Trips::UpdateTrip - Failed: ${error}`);
-    return;
+    next(error);
   }
   logger.info('Trips::UpdateTrip - Finished');
 });
 
 // DeleteTrip
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', async (req, res, next) => {
   logger.info('Trips::DeleteTrip - Initiated');
   try {
     const changes = await Trip.deleteById(req.params.id);
@@ -137,7 +137,7 @@ router.delete('/:id', async (req, res) => {
       message: error.message,
     });
     logger.error(`Trips::DeleteTrip - Failed: ${error}`);
-    return;
+    next(error);
   }
   logger.info('Trips::DeleteTrip - Finished');
 });

@@ -9,7 +9,7 @@ const router = express.Router();
 // But should be good enough for now to build everything else we need off of it for mvp...
 
 // GetUsers
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   logger.info('Users::GetUsers - Initiated');
   try {
     const users = await User.getAll();
@@ -27,13 +27,13 @@ router.get('/', async (req, res) => {
       message: error.message,
     });
     logger.error(`Users::GetUsers - Failed: ${error}`);
-    return;
+    next(error);
   }
   logger.info('Users::GetUsers - Finished');
 });
 
 // GetUser
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res, next) => {
   logger.info('Users::GetUser - Initiated');
   try {
     const user = await User.getById(req.params.id);
@@ -53,13 +53,13 @@ router.get('/:id', async (req, res) => {
       message: error.message,
     });
     logger.error(`Users::GetUser - Failed: ${error}`);
-    return;
+    next(error);
   }
   logger.info('Users::GetUser - Finished');
 });
 
 // NewUser
-router.post('/new', async (req, res) => {
+router.post('/new', async (req, res, next) => {
   logger.info('Users::NewUser - Initiated');
   try {
     const createdUserId = await User.createNew(req.body.email, req.body.username, req.body.password);
@@ -78,13 +78,13 @@ router.post('/new', async (req, res) => {
       message: error.message,
     });
     logger.error(`Users::NewUser - Failed: ${error}`);
-    return;
+    next(error);
   }
   logger.info('Users::NewUser - Finished');
 });
 
 // UpdateUser
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', async (req, res, next) => {
   logger.info('Users::UpdateUser - Initiated');
   try {
     const changes = await User.updateById(req.params.id, req.body.email, req.body.username, req.body.password);
@@ -108,13 +108,13 @@ router.patch('/:id', async (req, res) => {
       message: error.message,
     });
     logger.error(`Users::UpdateUser - Failed: ${error}`);
-    return;
+    next(error);
   }
   logger.info('Users::UpdateUser - Finished');
 });
 
 // DeleteUser
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', async (req, res, next) => {
   logger.info('Users::DeleteUser - Initiated');
   try {
     const changes = await User.deleteById(req.params.id);
@@ -138,7 +138,7 @@ router.delete('/:id', async (req, res) => {
       message: error.message,
     });
     logger.error(`Users::DeleteUser - Failed: ${error}`);
-    return;
+    next(error);
   }
   logger.info('Users::DeleteUser - Finished');
 });

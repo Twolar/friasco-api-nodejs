@@ -2,7 +2,7 @@ const Trip = require('../../src/models/trip');
 const db = require('../../src/utility/database');
 
 describe('Trip Model', () => {
-  beforeAll(async () => { 
+  beforeAll(async () => {
     process.env.NODE_ENV = 'test';
     return db.initialize();
   });
@@ -15,20 +15,20 @@ describe('Trip Model', () => {
     it('should get all trips', async () => {
       const tripsToInsert = [
         {
-          "userId": 1,
-          "location": "getAll1Auckland", 
-          "startDate": "getAll12023-07-03",
-          "endDate": "getAll12023-07-06", 
-          "status": "getAll1planning", 
-          "privacyStatus": "getAll1closefriends"
+          userId: 1,
+          location: 'getAll1Auckland',
+          startDate: 'getAll12023-07-03',
+          endDate: 'getAll12023-07-06',
+          status: 'getAll1planning',
+          privacyStatus: 'getAll1closefriends',
         },
         {
-          "userId": 1,
-          "location": "getAll2Auckland", 
-          "startDate": "getAll22023-07-03",
-          "endDate": "getAll22023-07-06", 
-          "status": "getAll2planning", 
-          "privacyStatus": "getAll2closefriends"
+          userId: 1,
+          location: 'getAll2Auckland',
+          startDate: 'getAll22023-07-03',
+          endDate: 'getAll22023-07-06',
+          status: 'getAll2planning',
+          privacyStatus: 'getAll2closefriends',
         },
       ];
       const values = tripsToInsert.map((trip) => `('${trip.userId}', '${trip.location}', '${trip.startDate}', '${trip.endDate}', '${trip.status}', '${trip.privacyStatus}')`).join(',');
@@ -46,12 +46,12 @@ describe('Trip Model', () => {
   describe('getById', () => {
     it('should get a trip by id', async () => {
       const insertTrip = {
-        "userId": 1,
-        "location": "getByIdAuckland", 
-        "startDate": "getById2023-07-03",
-        "endDate": "getById2023-07-06", 
-        "status": "getByIdplanning", 
-        "privacyStatus": "getByIdclosefriends"
+        userId: 1,
+        location: 'getByIdAuckland',
+        startDate: 'getById2023-07-03',
+        endDate: 'getById2023-07-06',
+        status: 'getByIdplanning',
+        privacyStatus: 'getByIdclosefriends',
       };
 
       const insertAndGetLastId = (sqlToExecute) => new Promise((resolve, reject) => {
@@ -76,12 +76,12 @@ describe('Trip Model', () => {
   describe('createNew', () => {
     it('should create a new trip', async () => {
       const createTrip = {
-        "userId": 1,
-        "location": "createAuckland", 
-        "startDate": "create2023-07-03",
-        "endDate": "create2023-07-06", 
-        "status": "createplanning", 
-        "privacyStatus": "createclosefriends"
+        userId: 1,
+        location: 'createAuckland',
+        startDate: 'create2023-07-03',
+        endDate: 'create2023-07-06',
+        status: 'createplanning',
+        privacyStatus: 'createclosefriends',
       };
       const createTripId = await Trip.createNew(createTrip);
       createTrip.id = createTripId;
@@ -106,12 +106,12 @@ describe('Trip Model', () => {
   describe('updateById', () => {
     it('should update a trip by id', async () => {
       const updateTrip = {
-        "userId": 1,
-        "location": "updateAuckland", 
-        "startDate": "update2023-07-03",
-        "endDate": "update2023-07-06", 
-        "status": "updateplanning", 
-        "privacyStatus": "updateclosefriends"
+        userId: 1,
+        location: 'updateAuckland',
+        startDate: 'update2023-07-03',
+        endDate: 'update2023-07-06',
+        status: 'updateplanning',
+        privacyStatus: 'updateclosefriends',
       };
 
       const insertAndGetLastId = (sqlToExecute) => new Promise((resolve, reject) => {
@@ -150,12 +150,12 @@ describe('Trip Model', () => {
   describe('deleteById', () => {
     it('should delete a trip by id', async () => {
       const insertTrip = {
-        "userId": 1,
-        "location": "deleteAuckland", 
-        "startDate": "delete2023-07-03",
-        "endDate": "delete2023-07-06", 
-        "status": "deleteplanning", 
-        "privacyStatus": "deleteclosefriends"
+        userId: 1,
+        location: 'deleteAuckland',
+        startDate: 'delete2023-07-03',
+        endDate: 'delete2023-07-06',
+        status: 'deleteplanning',
+        privacyStatus: 'deleteclosefriends',
       };
       const sql = `INSERT INTO trips (user_id, location, start_date, end_date, status, privacy_status) VALUES ('${insertTrip.userId}', '${insertTrip.location}', '${insertTrip.startDate}', '${insertTrip.endDate}', '${insertTrip.status}', '${insertTrip.privacyStatus}')`;
 

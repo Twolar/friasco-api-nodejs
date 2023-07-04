@@ -18,11 +18,11 @@ describe('Trip Routes', () => {
 
   describe('Get trips', () => {
     it('should get all trips', async () => {
-      const testTrip1 = new Trip(null, 1, 'auckland1', '2023-07-03', '2023-07-06', 'pending1', 'closefriends1')
+      const testTrip1 = new Trip(null, 1, 'auckland1', '2023-07-03', '2023-07-06', 'pending1', 'closefriends1');
       const createdTrip1Id = await Trip.createNew(testTrip1);
       testTrip1.id = createdTrip1Id;
 
-      const testTrip2 = new Trip(null, 1, 'auckland2', '2023-07-06', '2023-07-09', 'pending2', 'closefriends2')
+      const testTrip2 = new Trip(null, 1, 'auckland2', '2023-07-06', '2023-07-09', 'pending2', 'closefriends2');
       const createdTrip2Id = await Trip.createNew(testTrip2);
       testTrip2.id = createdTrip2Id;
 
@@ -62,7 +62,7 @@ describe('Trip Routes', () => {
 
   describe('Get trip', () => {
     it('should get a single trip', async () => {
-      const testTrip = new Trip(null, 1, 'Getauckland2', 'Get2023-07-06', 'Get2023-07-09', 'Getpending2', 'Getclosefriends2')
+      const testTrip = new Trip(null, 1, 'Getauckland2', 'Get2023-07-06', 'Get2023-07-09', 'Getpending2', 'Getclosefriends2');
       const createdTripId = await Trip.createNew(testTrip);
       testTrip.id = createdTripId;
 
@@ -91,13 +91,13 @@ describe('Trip Routes', () => {
   describe('Create trip', () => {
     it('should create a single trip', async () => {
       const testTrip = {
-        "userId": 1,
-        "location": "CreateAuckland", 
-        "startDate": "Create2023-07-03",
-        "endDate": "Create2023-07-06", 
-        "status": "Createplanning", 
-        "privacyStatus": "Createclosefriends"
-    };
+        userId: 1,
+        location: 'CreateAuckland',
+        startDate: 'Create2023-07-03',
+        endDate: 'Create2023-07-06',
+        status: 'Createplanning',
+        privacyStatus: 'Createclosefriends',
+      };
 
       const res = await request(server)
         .post(`${baseUrl}/trips/new`)
@@ -119,22 +119,22 @@ describe('Trip Routes', () => {
   describe('Update trip', () => {
     it('should update a single trip', async () => {
       const testTrip = {
-        "userId": 1,
-        "location": "UpdateAuckland", 
-        "startDate": "Update2023-07-03",
-        "endDate": "Update2023-07-06", 
-        "status": "Updateplanning", 
-        "privacyStatus": "Updateclosefriends"
+        userId: 1,
+        location: 'UpdateAuckland',
+        startDate: 'Update2023-07-03',
+        endDate: 'Update2023-07-06',
+        status: 'Updateplanning',
+        privacyStatus: 'Updateclosefriends',
       };
       const createdTripId = await Trip.createNew(testTrip);
 
       const updateTrip = {
-        "userId": 1,
-        "location": "UpdateAucklandUPDATED", 
-        "startDate": "Update2023-07-03UPDATED",
-        "endDate": "Update2023-07-06UPDATED", 
-        "status": "UpdateplanningUPDATED", 
-        "privacyStatus": "UpdateclosefriendsUPDATED"
+        userId: 1,
+        location: 'UpdateAucklandUPDATED',
+        startDate: 'Update2023-07-03UPDATED',
+        endDate: 'Update2023-07-06UPDATED',
+        status: 'UpdateplanningUPDATED',
+        privacyStatus: 'UpdateclosefriendsUPDATED',
       };
 
       const res = await request(server)
@@ -167,12 +167,12 @@ describe('Trip Routes', () => {
   describe('Delete trip', () => {
     it('should delete a single trip', async () => {
       const testTrip = {
-        "userId": 1,
-        "location": "DeleteAuckland", 
-        "startDate": "Delete2023-07-03",
-        "endDate": "Delete2023-07-06", 
-        "status": "Deleteplanning", 
-        "privacyStatus": "Deleteclosefriends"
+        userId: 1,
+        location: 'DeleteAuckland',
+        startDate: 'Delete2023-07-03',
+        endDate: 'Delete2023-07-06',
+        status: 'Deleteplanning',
+        privacyStatus: 'Deleteclosefriends',
       };
       const createdTripId = await Trip.createNew(testTrip);
       testTrip.id = createdTripId;

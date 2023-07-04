@@ -20,7 +20,7 @@ class Trip {
         } else if (!rows) {
           resolve(null);
         } else {
-          const trips = rows.map(row => new Trip(row.id, row.user_id, row.location, row.start_date, row.end_date, row.status, row.privacy_status));
+          const trips = rows.map((row) => new Trip(row.id, row.user_id, row.location, row.start_date, row.end_date, row.status, row.privacy_status));
           resolve(trips);
         }
       });
