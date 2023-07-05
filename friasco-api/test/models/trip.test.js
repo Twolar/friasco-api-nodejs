@@ -11,7 +11,7 @@ jest.mock('pino', () => () => ({
 describe('Trip Model', () => {
   beforeAll(async () => {
     process.env.NODE_ENV = 'test';
-    return db.initialize();
+    db.initialize();
   });
 
   afterAll(async () => {

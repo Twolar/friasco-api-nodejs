@@ -26,9 +26,6 @@ router.get('/', async (req, res, next) => {
     }
   } catch (error) {
     logger.error(`UsersRoute::GetUsers - Failed: ${error}`);
-    res.status(400).json({
-      message: error.message,
-    });
     next(error);
   }
   logger.info('UsersRoute::GetUsers - Finished');
@@ -54,9 +51,6 @@ router.get('/:id', async (req, res, next) => {
     }
   } catch (error) {
     logger.error(`UsersRoute::GetUser - Failed: ${error}`);
-    res.status(400).json({
-      message: error.message,
-    });
     next(error);
   }
   logger.info('UsersRoute::GetUser - Finished');
@@ -76,15 +70,12 @@ router.post('/new', async (req, res, next) => {
       });
     } else {
       logger.info('UsersRoute::NewUser - Something went wrong');
-      res.status(500).json({
-        message: 'internal server error',
+      res.status(400).json({
+        message: 'something went wrong',
       });
     }
   } catch (error) {
     logger.error(`UsersRoute::NewUser - Failed: ${error}`);
-    res.status(400).json({
-      message: error.message,
-    });
     next(error);
   }
   logger.info('UsersRoute::NewUser - Finished');
@@ -109,15 +100,12 @@ router.patch('/:id', async (req, res, next) => {
       });
     } else {
       logger.info('UsersRoute::UpdateUser - Something went wrong');
-      res.status(500).json({
-        message: 'internal server error',
+      res.status(400).json({
+        message: 'something went wrong',
       });
     }
   } catch (error) {
     logger.error(`UsersRoute::UpdateUser - Failed: ${error}`);
-    res.status(400).json({
-      message: error.message,
-    });
     next(error);
   }
   logger.info('UsersRoute::UpdateUser - Finished');
@@ -142,15 +130,12 @@ router.delete('/:id', async (req, res, next) => {
       });
     } else {
       logger.info('UsersRoute::DeleteUser - Something went wrong');
-      res.status(500).json({
-        message: 'internal server error',
+      res.status(400).json({
+        message: 'something went wrong',
       });
     }
   } catch (error) {
     logger.error(`UsersRoute::DeleteUser - Failed: ${error}`);
-    res.status(400).json({
-      message: error.message,
-    });
     next(error);
   }
   logger.info('UsersRoute::DeleteUser - Finished');

@@ -22,9 +22,6 @@ router.get('/', async (req, res, next) => {
     }
   } catch (error) {
     logger.error(`TripsRoute::GetTrips - Failed: ${error}`);
-    res.status(400).json({
-      message: error.message,
-    });
     next(error);
   }
   logger.info('TripsRoute::GetTrips - Finished');
@@ -50,9 +47,6 @@ router.get('/:id', async (req, res, next) => {
     }
   } catch (error) {
     logger.error(`TripsRoute::GetTrip - Failed: ${error}`);
-    res.status(400).json({
-      message: error.message,
-    });
     next(error);
   }
   logger.info('TripsRoute::GetTrip - Finished');
@@ -73,15 +67,12 @@ router.post('/new', async (req, res, next) => {
       });
     } else {
       logger.info('TripsRoute::NewTrip - Something went wrong');
-      res.status(500).json({
-        message: 'internal server error',
+      res.status(400).json({
+        message: 'something went wrong',
       });
     }
   } catch (error) {
     logger.error(`TripsRoute::NewTrip - Failed: ${error}`);
-    res.status(400).json({
-      message: error.message,
-    });
     next(error);
   }
   logger.info('TripsRoute::NewTrip - Finished');
@@ -107,15 +98,12 @@ router.patch('/:id', async (req, res, next) => {
       });
     } else {
       logger.info('TripsRoute::UpdateTrip - Something went wrong');
-      res.status(500).json({
-        message: 'internal server error',
+      res.status(400).json({
+        message: 'something went wrong',
       });
     }
   } catch (error) {
     logger.error(`TripsRoute::UpdateTrip - Failed: ${error}`);
-    res.status(400).json({
-      message: error.message,
-    });
     next(error);
   }
   logger.info('TripsRoute::UpdateTrip - Finished');
@@ -140,15 +128,12 @@ router.delete('/:id', async (req, res, next) => {
       });
     } else {
       logger.info('TripsRoute::DeleteTrip - Something went wrong');
-      res.status(500).json({
-        message: 'internal server error',
+      res.status(400).json({
+        message: 'something went wrong',
       });
     }
   } catch (error) {
     logger.error(`TripsRoute::DeleteTrip - Failed: ${error}`);
-    res.status(400).json({
-      message: error.message,
-    });
     next(error);
   }
   logger.info('TripsRoute::DeleteTrip - Finished');

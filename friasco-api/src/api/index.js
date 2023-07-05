@@ -10,13 +10,5 @@ const router = express.Router();
 // Add Routes to router
 router.use('/users', users);
 router.use('/trips', trips);
-router.use('/', (req, res) => {
-  logger.info('ApiBase - Initiated');
-  res.json({
-    message: 'success',
-    tempFeedback: 'ApiBase',
-  });
-  logger.info('ApiBase - Finished');
-});
 
 module.exports = router;

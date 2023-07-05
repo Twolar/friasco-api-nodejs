@@ -10,6 +10,13 @@ const port = process.env.PORT || 8000;
 
 app.use(express.json());
 app.use('/api/v1', apiBase);
+app.use((req, res) => {
+  logger.info('Server::404 - Initiated');
+  res.status(404).json({
+    message: 'does not exist',
+  });
+  logger.info('Server::404 - Finished');
+});
 app.use(express.urlencoded());
 
 const server = app.listen(port, () => {
