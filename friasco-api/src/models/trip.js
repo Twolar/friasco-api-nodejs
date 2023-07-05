@@ -1,7 +1,9 @@
 const db = require('../utility/database');
+const logger = require('../utility/logger');
 
 class Trip {
   constructor(id, userId, location, startDate, endDate, status, privacyStatus) {
+    logger.info('Trip::constructor - Initiated');
     this.id = id;
     this.userId = userId;
     this.location = location;
@@ -12,6 +14,7 @@ class Trip {
   }
 
   static async getAll() {
+    logger.info('Trip::GetAll - Initiated');
     return new Promise((resolve, reject) => {
       const query = 'SELECT * FROM trips';
       db.all(query, (error, rows) => {
@@ -28,6 +31,7 @@ class Trip {
   }
 
   static async getById(id) {
+    logger.info('Trip::getById - Initiated');
     return new Promise((resolve, reject) => {
       const query = 'SELECT * FROM trips WHERE id = ?';
       db.get(query, id, (error, row) => {
@@ -44,6 +48,7 @@ class Trip {
   }
 
   static async createNew(tripData) {
+    logger.info('Trip::createNew - Initiated');
     return new Promise((resolve, reject) => {
       const query = 'INSERT INTO trips (user_id, location, start_date, end_date, status, privacy_status) VALUES (?, ?, ?, ?, ?, ?)';
       db.run(
@@ -61,6 +66,7 @@ class Trip {
   }
 
   static async updateById(tripData) {
+    logger.info('Trip::updateById - Initiated');
     return new Promise((resolve, reject) => {
       const query = 'UPDATE trips SET user_id = ?, location = ?, start_date = ?, end_date = ?, status = ?, privacy_status = ? WHERE id = ?';
       db.run(
@@ -78,6 +84,7 @@ class Trip {
   }
 
   static async deleteById(id) {
+    logger.info('Trip::deleteById - Initiated');
     return new Promise((resolve, reject) => {
       const query = 'DELETE FROM trips WHERE id = ?';
       db.run(query, id, function (error) {

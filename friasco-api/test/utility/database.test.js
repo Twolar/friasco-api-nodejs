@@ -1,5 +1,12 @@
 const db = require('../../src/utility/database');
 
+jest.mock('pino', () => () => ({
+  info: jest.fn(),
+  error: jest.fn(),
+  warn: jest.fn(),
+  debug: jest.fn(),
+}));
+
 describe('SQLite Database Initialisation', () => {
   beforeAll(() => {
     process.env.NODE_ENV = 'test';

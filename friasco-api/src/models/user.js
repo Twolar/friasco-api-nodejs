@@ -1,7 +1,9 @@
 const db = require('../utility/database');
+const logger = require('../utility/logger');
 
 class User {
   constructor(id, email, username, password) {
+    logger.info('User::constructor - Initiated');
     this.id = id;
     this.email = email;
     this.username = username;
@@ -9,6 +11,7 @@ class User {
   }
 
   static async getAll() {
+    logger.info('User::GetAll - Initiated');
     return new Promise((resolve, reject) => {
       const query = 'SELECT * FROM users';
       db.all(query, (error, rows) => {
@@ -24,6 +27,7 @@ class User {
   }
 
   static async getById(id) {
+    logger.info('User::getById - Initiated');
     return new Promise((resolve, reject) => {
       const query = 'SELECT * FROM users WHERE id = ?';
       db.get(query, id, (error, row) => {
@@ -40,6 +44,7 @@ class User {
   }
 
   static async createNew(email, username, password) {
+    logger.info('User::createNew - Initiated');
     return new Promise((resolve, reject) => {
       const query = 'INSERT INTO users (email, username, password) VALUES (?, ?, ?)';
       db.run(query, [email, username, password], function (error) {
@@ -53,6 +58,7 @@ class User {
   }
 
   static async updateById(id, email, username, password) {
+    logger.info('User::updateById - Initiated');
     return new Promise((resolve, reject) => {
       const query = 'UPDATE users SET email = ?, username = ?, password = ? WHERE id = ?';
       db.run(query, [email, username, password, id], function (error) {
@@ -66,6 +72,7 @@ class User {
   }
 
   static async deleteById(id) {
+    logger.info('User::deleteById - Initiated');
     return new Promise((resolve, reject) => {
       const query = 'DELETE FROM users WHERE id = ?';
       db.run(query, id, function (error) {

@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const { logger } = require('./src/utility/logger');
+const logger = require('./src/utility/logger');
 
 const apiBase = require('./src/api');
 

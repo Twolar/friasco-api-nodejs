@@ -1,5 +1,5 @@
 const sqlite3 = require('sqlite3').verbose();
-const { logger } = require('./logger');
+const logger = require('./logger');
 
 const dbSource = process.env.DBSOURE || 'friasco.db';
 
@@ -21,6 +21,7 @@ if (process.env.NODE_ENV === 'test') {
 }
 
 db.initialize = () => {
+  logger.info('Database::initialize - Initiated');
   db.serialize(() => {
     initializeUserTable();
     initializeTripTable();
@@ -28,6 +29,7 @@ db.initialize = () => {
 };
 
 db.closeConnection = () => {
+  logger.info('Database::closeConnection - Initiated');
   db.close((err) => {
     if (err) {
       logger.error(`Database::close - ${err.message}`);
@@ -38,6 +40,7 @@ db.closeConnection = () => {
 };
 
 function initializeUserTable() {
+  logger.info('Database::initializeUserTable - Initiated');
   const createUserTableSQL = `
     CREATE TABLE users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -56,8 +59,9 @@ function initializeUserTable() {
 }
 
 function initializeTripTable() {
+  logger.info('Database::initializeTripTable - Initiated');
   const createTripTableSQL = `
-    CREATE TABLE IF NOT EXISTS trips (
+    CREATE TABLE trips (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       user_id INTEGER,
       location TEXT,

@@ -3,6 +3,13 @@ const server = require('../../server');
 const db = require('../../src/utility/database');
 const Trip = require('../../src/models/trip');
 
+jest.mock('pino', () => () => ({
+  info: jest.fn(),
+  error: jest.fn(),
+  warn: jest.fn(),
+  debug: jest.fn(),
+}));
+
 const baseUrl = '/api/v1';
 
 describe('Trip Routes', () => {
