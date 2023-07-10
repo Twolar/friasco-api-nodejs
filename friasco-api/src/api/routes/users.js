@@ -1,6 +1,5 @@
 const express = require('express');
-const logger = require('../../utility/logger');
-const User = require('../../models/user');
+const userController = require('../controllers/userController');
 
 const router = express.Router();
 
@@ -8,137 +7,124 @@ const router = express.Router();
 // As not looking to reinvent the wheel with user management
 // But should be good enough for now to build everything else we need off of it for mvp...
 
-// GetUsers
-router.get('/', async (req, res, next) => {
-  logger.info('UsersRoute::GetUsers - Initiated');
-  try {
-    const users = await User.getAll();
+/**
+ * @openapi
+ * /users/:
+ *   get:
+ *     summary: Get all users
+ *     tags:
+ *       - users
+ *     responses:
+ *       200:
+ *         description:  Gets all users.
+ */
+router.get('/', userController.getUsers);
 
-    if (users.length > 0) {
-      logger.info('UsersRoute::GetUsers - Success');
-      res.status(200).json({
-        message: 'success',
-        users,
-      });
-    } else {
-      logger.info('UsersRoute::GetUsers - No users found');
-      res.status(204).json();
-    }
-  } catch (error) {
-    logger.error(`UsersRoute::GetUsers - Failed: ${error}`);
-    next(error);
-  }
-  logger.info('UsersRoute::GetUsers - Finished');
-});
+/**
+ * @openapi
+ * /users/{id}:
+ *   get:
+ *     summary: Get a single user
+ *     tags:
+ *       - users
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Numeric ID of the user to retrieve.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Get a single user
+ */
+router.get('/:id', userController.getUser);
 
-// GetUser
-router.get('/:id', async (req, res, next) => {
-  logger.info('UsersRoute::GetUser - Initiated');
-  try {
-    const user = await User.getById(req.params.id);
+/**
+ * @openapi
+ * /users/new:
+ *   post:
+ *     summary: Add new user
+ *     tags:
+ *       - users
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *                email:
+ *                 type: string
+ *                 description: user email address
+ *                 example: 'test@test.com'
+ *                username:
+ *                 type: string
+ *                 description: username
+ *                 example: ddot
+ *                password:
+ *                 type: string
+ *                 description: user password
+ *                 example: OwenWilsonWow
+ *     responses:
+ *       201:
+ *         description: Add new user
+ */
+router.post('/new', userController.newUser);
 
-    if (user) {
-      logger.info('UsersRoute::GetUser - Success');
-      res.status(200).json({
-        message: 'success',
-        user,
-      });
-    } else {
-      logger.info('UsersRoute::GetUser - User not found');
-      res.status(404).json({
-        message: 'not found',
-      });
-    }
-  } catch (error) {
-    logger.error(`UsersRoute::GetUser - Failed: ${error}`);
-    next(error);
-  }
-  logger.info('UsersRoute::GetUser - Finished');
-});
+/**
+ * @openapi
+ * /users/{id}:
+ *   patch:
+ *     summary: Update existing user details based on ID
+ *     tags:
+ *       - users
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Numeric ID of the user to update.
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: false
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *                email:
+ *                 type: string
+ *                 description: user email address
+ *                 example: 'test@test.com'
+ *                username:
+ *                 type: string
+ *                 description: username
+ *                 example: ddot
+ *     responses:
+ *       200:
+ *         description: Update existing user
+ */
+router.patch('/:id', userController.updateUser);
 
-// NewUser
-router.post('/new', async (req, res, next) => {
-  logger.info('UsersRoute::NewUser - Initiated');
-  try {
-    const createdUserId = await User.createNew(req.body.email, req.body.username, req.body.password);
-
-    if (createdUserId) {
-      logger.info('UsersRoute::NewUser - Success');
-      res.status(201).json({
-        message: 'success',
-        id: createdUserId,
-      });
-    } else {
-      logger.info('UsersRoute::NewUser - Something went wrong');
-      res.status(400).json({
-        message: 'something went wrong',
-      });
-    }
-  } catch (error) {
-    logger.error(`UsersRoute::NewUser - Failed: ${error}`);
-    next(error);
-  }
-  logger.info('UsersRoute::NewUser - Finished');
-});
-
-// UpdateUser
-router.patch('/:id', async (req, res, next) => {
-  logger.info('UsersRoute::UpdateUser - Initiated');
-  try {
-    const changes = await User.updateById(req.params.id, req.body.email, req.body.username, req.body.password);
-
-    if (changes) {
-      logger.info('UsersRoute::UpdateUser - Success');
-      res.send({
-        message: 'success',
-        changes,
-      });
-    } else if (changes === 0) {
-      logger.info('UsersRoute::UpdateUser - No row was changed');
-      res.status(404).json({
-        message: 'not found',
-      });
-    } else {
-      logger.info('UsersRoute::UpdateUser - Something went wrong');
-      res.status(400).json({
-        message: 'something went wrong',
-      });
-    }
-  } catch (error) {
-    logger.error(`UsersRoute::UpdateUser - Failed: ${error}`);
-    next(error);
-  }
-  logger.info('UsersRoute::UpdateUser - Finished');
-});
-
-// DeleteUser
-router.delete('/:id', async (req, res, next) => {
-  logger.info('UsersRoute::DeleteUser - Initiated');
-  try {
-    const changes = await User.deleteById(req.params.id);
-
-    if (changes) {
-      logger.info('UsersRoute::DeleteUser - Success');
-      res.send({
-        message: 'success',
-        changes,
-      });
-    } else if (changes === 0) {
-      logger.info('UsersRoute::DeleteUser - User not found');
-      res.status(404).json({
-        message: 'not found',
-      });
-    } else {
-      logger.info('UsersRoute::DeleteUser - Something went wrong');
-      res.status(400).json({
-        message: 'something went wrong',
-      });
-    }
-  } catch (error) {
-    logger.error(`UsersRoute::DeleteUser - Failed: ${error}`);
-    next(error);
-  }
-  logger.info('UsersRoute::DeleteUser - Finished');
-});
+/**
+ * @openapi
+ * /users/{id}:
+ *   delete:
+ *     summary: Delete existing user based on ID
+ *     tags:
+ *       - users
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Numeric ID of the user to delete.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Delete existing user based on ID
+ */
+router.delete('/:id', userController.deleteUser);
 
 module.exports = router;

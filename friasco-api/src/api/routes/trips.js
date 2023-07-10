@@ -1,142 +1,154 @@
 const express = require('express');
-const logger = require('../../utility/logger');
-const Trip = require('../../models/trip');
+const tripController = require('../controllers/tripController');
 
 const router = express.Router();
 
-// GetTrips
-router.get('/', async (req, res, next) => {
-  logger.info('TripsRoute::GetTrips - Initiated');
-  try {
-    const trips = await Trip.getAll();
+/**
+ * @openapi
+ * /trips/:
+ *   get:
+ *     summary: Get all trips
+ *     tags:
+ *       - trips
+ *     responses:
+ *       200:
+ *         description:  Gets all trips.
+ */
+router.get('/', tripController.getTrips);
 
-    if (trips.length > 0) {
-      logger.info('TripsRoute::GetTrips - Success');
-      res.status(200).json({
-        message: 'success',
-        trips,
-      });
-    } else {
-      logger.info('TripsRoute::GetTrips -  No trips found');
-      res.status(204).json();
-    }
-  } catch (error) {
-    logger.error(`TripsRoute::GetTrips - Failed: ${error}`);
-    next(error);
-  }
-  logger.info('TripsRoute::GetTrips - Finished');
-});
+/**
+ * @openapi
+ * /trips/{id}:
+ *   get:
+ *     summary: Get a single trip
+ *     tags:
+ *       - trips
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Numeric ID of the trip to retrieve.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Get a single trip
+ */
+router.get('/:id', tripController.getTrip);
 
-// GetTrip
-router.get('/:id', async (req, res, next) => {
-  logger.info('TripsRoute::GetTrip - Initiated');
-  try {
-    const trip = await Trip.getById(req.params.id);
+/**
+ * @openapi
+ * /trips/new:
+ *   post:
+ *     summary: Add new trip
+ *     tags:
+ *       - trips
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *                userId:
+ *                 type: int
+ *                 description: ID of user trip associated with
+ *                 example: 1
+ *                location:
+ *                 type: string
+ *                 description: Location of the trip
+ *                 example: 'Auckland'
+ *                startDate:
+ *                 type: string
+ *                 description: Start date of the trip
+ *                 example: '2023-07-03'
+ *                endDate:
+ *                 type: string
+ *                 description: End date of the trip
+ *                 example: '2023-07-25'
+ *                status:
+ *                 type: string
+ *                 description: Status of the trip
+ *                 example: 'planning'
+ *                privacyStatus:
+ *                 type: string
+ *                 description: Status of the trip
+ *                 example: 'closefriends'
+ *     responses:
+ *       201:
+ *         description: Add new trip
+ */
+router.post('/new', tripController.newTrip);
 
-    if (trip) {
-      logger.info('TripsRoute::GetTrip - Success');
-      res.status(200).json({
-        message: 'success',
-        trip,
-      });
-    } else {
-      logger.info('TripsRoute::GetTrip - Trip not found');
-      res.status(404).json({
-        message: 'not found',
-      });
-    }
-  } catch (error) {
-    logger.error(`TripsRoute::GetTrip - Failed: ${error}`);
-    next(error);
-  }
-  logger.info('TripsRoute::GetTrip - Finished');
-});
+/**
+ * @openapi
+ * /trips/{id}:
+ *   patch:
+ *     summary: Update existing trip details based on ID
+ *     tags:
+ *       - trips
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Numeric ID of the trip to update.
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: false
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *                userId:
+ *                 type: int
+ *                 description: ID of user trip associated with
+ *                 example: 1
+ *                location:
+ *                 type: string
+ *                 description: Location of the trip
+ *                 example: 'Wellington'
+ *                startDate:
+ *                 type: string
+ *                 description: Start date of the trip
+ *                 example: '2023-08-09'
+ *                endDate:
+ *                 type: string
+ *                 description: End date of the trip
+ *                 example: '2023-08-22'
+ *                status:
+ *                 type: string
+ *                 description: Status of the trip
+ *                 example: 'lockedin'
+ *                privacyStatus:
+ *                 type: string
+ *                 description: Status of the trip
+ *                 example: 'everyone'
+ *     responses:
+ *       200:
+ *         description: Update existing trip
+ */
+router.patch('/:id', tripController.updateTrip);
 
-// NewTrip
-router.post('/new', async (req, res, next) => {
-  logger.info('TripsRoute::NewTrip - Initiated');
-  try {
-    const newTripData = new Trip(null, req.body.userId, req.body.location, req.body.startDate, req.body.endDate, req.body.status, req.body.privacyStatus);
-    const createdTripId = await Trip.createNew(newTripData);
-
-    if (createdTripId) {
-      logger.info('TripsRoute::NewTrip - Success');
-      res.status(201).json({
-        message: 'success',
-        id: createdTripId,
-      });
-    } else {
-      logger.info('TripsRoute::NewTrip - Something went wrong');
-      res.status(400).json({
-        message: 'something went wrong',
-      });
-    }
-  } catch (error) {
-    logger.error(`TripsRoute::NewTrip - Failed: ${error}`);
-    next(error);
-  }
-  logger.info('TripsRoute::NewTrip - Finished');
-});
-
-// UpdateTrip
-router.patch('/:id', async (req, res, next) => {
-  logger.info('TripsRoute::UpdateTrip - Initiated');
-  try {
-    const updateTripData = new Trip(req.params.id, req.body.userId, req.body.location, req.body.startDate, req.body.endDate, req.body.status, req.body.privacyStatus);
-    const changes = await Trip.updateById(updateTripData);
-
-    if (changes) {
-      logger.info('TripsRoute::UpdateTrip - Success');
-      res.send({
-        message: 'success',
-        changes,
-      });
-    } else if (changes === 0) {
-      logger.info('TripsRoute::UpdateTrip - No row was changed');
-      res.status(404).json({
-        message: 'not found',
-      });
-    } else {
-      logger.info('TripsRoute::UpdateTrip - Something went wrong');
-      res.status(400).json({
-        message: 'something went wrong',
-      });
-    }
-  } catch (error) {
-    logger.error(`TripsRoute::UpdateTrip - Failed: ${error}`);
-    next(error);
-  }
-  logger.info('TripsRoute::UpdateTrip - Finished');
-});
-
-// DeleteTrip
-router.delete('/:id', async (req, res, next) => {
-  logger.info('TripsRoute::DeleteTrip - Initiated');
-  try {
-    const changes = await Trip.deleteById(req.params.id);
-
-    if (changes) {
-      logger.info('TripsRoute::DeleteTrip - Success');
-      res.send({
-        message: 'success',
-        changes,
-      });
-    } else if (changes === 0) {
-      logger.info('TripsRoute::DeleteTrip - Trip not found');
-      res.status(404).json({
-        message: 'not found',
-      });
-    } else {
-      logger.info('TripsRoute::DeleteTrip - Something went wrong');
-      res.status(400).json({
-        message: 'something went wrong',
-      });
-    }
-  } catch (error) {
-    logger.error(`TripsRoute::DeleteTrip - Failed: ${error}`);
-    next(error);
-  }
-  logger.info('TripsRoute::DeleteTrip - Finished');
-});
+/**
+ * @openapi
+ * /trips/{id}:
+ *   delete:
+ *     summary: Delete existing trip based on ID
+ *     tags:
+ *       - trips
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: Numeric ID of the trip to delete.
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Delete existing trip based on ID
+ */
+router.delete('/:id', tripController.deleteTrip);
 
 module.exports = router;
