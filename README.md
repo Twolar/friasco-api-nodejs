@@ -61,7 +61,7 @@ API
 1. In terminal navigate to friasco-api directory
 2. Install packages with "npm install"
 3. To run the application "npm start" (API is now served on http://localhost:8000/ or port defined in dotenv, and terminate it via 'control + c')
-4. To run unit tests "npm test"
+4. To run unit tests "npm test" (can be buggy with a couple of test, executing "npm run lint-fix" normally solves it)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
