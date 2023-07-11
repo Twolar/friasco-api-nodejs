@@ -28,7 +28,6 @@ Learning project for Javascript related technologies
     </li>
     <li><a href="#getting-started">Getting Started</a></li>
     <li><a href="#documentation">Documentation</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
@@ -42,11 +41,6 @@ Learning project for Javascript related technologies
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- DOCUMENTATION -->
-## Documentation
-- API: After starting API, you can access swagger via /api/v1/swagger
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -68,6 +62,13 @@ API
 2. Install packages with "npm install"
 3. To run the application "npm start" (API is now served on http://localhost:8000/ or port defined in dotenv, and terminate it via 'control + c')
 4. To run unit tests "npm test" (can be buggy with a couple of test, executing "npm run lint-fix" normally solves it)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!-- DOCUMENTATION -->
+## Documentation
+- API: After starting API, you can access swagger via /api/v1/swagger
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
