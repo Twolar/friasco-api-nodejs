@@ -1,4 +1,4 @@
-const db = require('../../src/utility/database');
+const db = require('../../../src/utility/database');
 
 jest.mock('pino', () => () => ({
   info: jest.fn(),

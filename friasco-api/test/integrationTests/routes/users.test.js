@@ -1,7 +1,7 @@
 const request = require('supertest');
-const server = require('../../server');
-const db = require('../../src/utility/database');
-const User = require('../../src/models/user');
+const server = require('../../../server');
+const db = require('../../../src/utility/database');
+const User = require('../../../src/models/user');
 
 jest.mock('pino', () => () => ({
   info: jest.fn(),

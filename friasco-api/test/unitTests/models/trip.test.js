@@ -1,5 +1,5 @@
-const Trip = require('../../src/models/trip');
-const db = require('../../src/utility/database');
+const Trip = require('../../../src/models/trip');
+const db = require('../../../src/utility/database');
 
 jest.mock('pino', () => () => ({
   info: jest.fn(),

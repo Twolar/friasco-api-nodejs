@@ -1,5 +1,5 @@
-const User = require('../../src/models/user');
-const db = require('../../src/utility/database');
+const User = require('../../../src/models/user');
+const db = require('../../../src/utility/database');
 
 jest.mock('pino', () => () => ({
   info: jest.fn(),
