@@ -1,7 +1,7 @@
 const logger = require('../../utility/logger');
 const Trip = require('../../models/trip');
 
-getTrips = async (req, res, next) => {
+const getTrips = async (req, res, next) => {
   logger.info('tripController::GetTrips - Initiated');
   try {
     const trips = await Trip.getAll();
@@ -23,7 +23,7 @@ getTrips = async (req, res, next) => {
   logger.info('tripController::GetTrips - Finished');
 };
 
-getTrip = async (req, res, next) => {
+const getTrip = async (req, res, next) => {
   logger.info('tripController::GetTrip - Initiated');
   try {
     const trip = await Trip.getById(req.params.id);
@@ -47,7 +47,7 @@ getTrip = async (req, res, next) => {
   logger.info('tripController::GetTrip - Finished');
 };
 
-newTrip = async (req, res, next) => {
+const newTrip = async (req, res, next) => {
   logger.info('tripController::NewTrip - Initiated');
   try {
     const newTripData = new Trip(null, req.body.userId, req.body.location, req.body.startDate, req.body.endDate, req.body.status, req.body.privacyStatus);
@@ -72,7 +72,7 @@ newTrip = async (req, res, next) => {
   logger.info('tripController::NewTrip - Finished');
 };
 
-updateTrip = async (req, res, next) => {
+const updateTrip = async (req, res, next) => {
   logger.info('tripController::UpdateTrip - Initiated');
   try {
     const updateTripData = new Trip(req.params.id, req.body.userId, req.body.location, req.body.startDate, req.body.endDate, req.body.status, req.body.privacyStatus);
@@ -102,7 +102,7 @@ updateTrip = async (req, res, next) => {
   logger.info('tripController::UpdateTrip - Finished');
 };
 
-deleteTrip = async (req, res, next) => {
+const deleteTrip = async (req, res, next) => {
   logger.info('tripController::DeleteTrip - Initiated');
   try {
     const changes = await Trip.deleteById(req.params.id);

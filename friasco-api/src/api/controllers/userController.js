@@ -1,7 +1,7 @@
 const logger = require('../../utility/logger');
 const User = require('../../models/user');
 
-getUsers = async (req, res, next) => {
+const getUsers = async (req, res, next) => {
   logger.info('userController::GetUsers - Initiated');
   try {
     const users = await User.getAll();
@@ -23,7 +23,7 @@ getUsers = async (req, res, next) => {
   logger.info('userController::GetUsers - Finished');
 };
 
-getUser = async (req, res, next) => {
+const getUser = async (req, res, next) => {
   logger.info('userController::GetUser - Initiated');
   try {
     const user = await User.getById(req.params.id);
@@ -47,7 +47,7 @@ getUser = async (req, res, next) => {
   logger.info('userController::GetUser - Finished');
 };
 
-newUser = async (req, res, next) => {
+const newUser = async (req, res, next) => {
   logger.info('userController::NewUser - Initiated');
   try {
     const createdUserId = await User.createNew(req.body.email, req.body.username, req.body.password);
@@ -71,7 +71,7 @@ newUser = async (req, res, next) => {
   logger.info('userController::NewUser - Finished');
 };
 
-updateUser = async (req, res, next) => {
+const updateUser = async (req, res, next) => {
   logger.info('userController::UpdateUser - Initiated');
   try {
     const changes = await User.updateById(req.params.id, req.body.email, req.body.username, req.body.password);
@@ -100,7 +100,7 @@ updateUser = async (req, res, next) => {
   logger.info('userController::UpdateUser - Finished');
 };
 
-deleteUser = async (req, res, next) => {
+const deleteUser = async (req, res, next) => {
   logger.info('userController::DeleteUser - Initiated');
   try {
     const changes = await User.deleteById(req.params.id);

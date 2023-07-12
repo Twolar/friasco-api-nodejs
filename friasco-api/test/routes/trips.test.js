@@ -10,7 +10,7 @@ jest.mock('pino', () => () => ({
   debug: jest.fn(),
 }));
 
-const baseUrl = '/api/v1';
+const baseUrl = '/v1';
 
 describe('Trip Routes', () => {
   beforeAll(async () => {
@@ -57,7 +57,7 @@ describe('Trip Routes', () => {
       });
 
       const sql = 'DELETE FROM trips';
-      const changes = await deleteAllTripRows(sql);
+      await deleteAllTripRows(sql);
 
       const res = await request(server)
         .get(`${baseUrl}/trips`)

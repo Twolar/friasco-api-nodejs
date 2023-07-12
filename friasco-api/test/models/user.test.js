@@ -27,13 +27,11 @@ describe('User Model', () => {
       ];
       const values = usersToInsert.map((user) => `('${user.email}', '${user.username}', '${user.password}')`).join(',');
       const sql = `INSERT INTO users (email, username, password) VALUES ${values}`;
-      db.run(sql, (error) => {});
+      db.run(sql, () => {});
 
       const usersFetched = await User.getAll();
-      usersFetched.forEach((user) => {
-        delete user.id;
-      });
-      expect(usersToInsert).toEqual(usersFetched);
+      const usersFetchedWithoutIds = usersFetched.map(({ id, ...user }) => user);
+      expect(usersToInsert).toEqual(usersFetchedWithoutIds);
     });
   });
 
