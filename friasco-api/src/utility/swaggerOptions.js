@@ -9,7 +9,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: '/api/v1',
+        url: '/v1',
         description: 'Default',
       },
     ],

@@ -40,13 +40,11 @@ describe('Trip Model', () => {
       ];
       const values = tripsToInsert.map((trip) => `('${trip.userId}', '${trip.location}', '${trip.startDate}', '${trip.endDate}', '${trip.status}', '${trip.privacyStatus}')`).join(',');
       const sql = `INSERT INTO trips (user_id, location, start_date, end_date, status, privacy_status) VALUES ${values}`;
-      db.run(sql, (error) => {});
+      db.run(sql, () => {});
 
       const tripsFetched = await Trip.getAll();
-      tripsFetched.forEach((trip) => {
-        delete trip.id;
-      });
-      expect(tripsToInsert).toEqual(tripsFetched);
+      const tripsFetchedWithoutIds = tripsFetched.map(({ id, ...trip }) => trip);
+      expect(tripsToInsert).toEqual(tripsFetchedWithoutIds);
     });
   });
 

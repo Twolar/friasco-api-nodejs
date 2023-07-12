@@ -20,11 +20,14 @@ module.exports = {
       parserOptions: {
         sourceType: 'script',
       },
+
     },
   ],
   parserOptions: {
     ecmaVersion: 'latest',
   },
   rules: {
+    'max-len': 'off',
+    'func-names': 'off',
   },
 };

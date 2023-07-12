@@ -20,25 +20,6 @@ if (process.env.NODE_ENV === 'test') {
   });
 }
 
-db.initialize = () => {
-  logger.info('Database::initialize - Initiated');
-  db.serialize(() => {
-    initializeUserTable();
-    initializeTripTable();
-  });
-};
-
-db.closeConnection = () => {
-  logger.info('Database::closeConnection - Initiated');
-  db.close((err) => {
-    if (err) {
-      logger.error(`Database::close - ${err.message}`);
-    } else {
-      logger.info(`Database::close - Closed connection to ${dbSource} database successfully`);
-    }
-  });
-};
-
 function initializeUserTable() {
   logger.info('Database::initializeUserTable - Initiated');
   const createUserTableSQL = `
@@ -80,5 +61,24 @@ function initializeTripTable() {
     }
   });
 }
+
+db.initialize = () => {
+  logger.info('Database::initialize - Initiated');
+  db.serialize(() => {
+    initializeUserTable();
+    initializeTripTable();
+  });
+};
+
+db.closeConnection = () => {
+  logger.info('Database::closeConnection - Initiated');
+  db.close((err) => {
+    if (err) {
+      logger.error(`Database::close - ${err.message}`);
+    } else {
+      logger.info(`Database::close - Closed connection to ${dbSource} database successfully`);
+    }
+  });
+};
 
 module.exports = db;

@@ -9,7 +9,7 @@ const app = express();
 const port = process.env.PORT || 8000;
 
 app.use(express.json());
-app.use('/api/v1', apiBase);
+app.use('/v1', apiBase);
 app.use((req, res) => {
   logger.info('Server::404 - Initiated');
   res.status(404).json({

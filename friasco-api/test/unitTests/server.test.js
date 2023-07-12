@@ -8,6 +8,8 @@ jest.mock('pino', () => () => ({
   debug: jest.fn(),
 }));
 
+const baseUrl = '/v1';
+
 describe('Server', () => {
   afterAll(async () => {
     server.close();
@@ -25,7 +27,7 @@ describe('Server', () => {
 
   it('should return 404 for route /api/v1 that does not exist', async () => {
     const res = await request(server)
-      .get('/api/v1/fklsdklfskl')
+      .get(`${baseUrl}/fklsdklfskl`)
       .send();
 
     expect(res.statusCode).toEqual(404);
@@ -35,7 +37,7 @@ describe('Server', () => {
 
   it('should not return 404 for route /api/v1 that does exist', async () => {
     const res = await request(server)
-      .get('/api/v1/trips')
+      .get(`${baseUrl}/trips`)
       .send();
 
     // Get 500 because no database table initialzed
