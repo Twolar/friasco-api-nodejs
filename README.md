@@ -54,14 +54,22 @@ NPM installed and setup
 ### Get Started Instructions
 
 Lint code before merging PRs:
-- To see what linter will fix, run 'npm run lint'
-- To action linter changes, run 'npm run lint-fix'
+- To action linter changes, execute 'npm run lint-fix'
 
-API
+Run Both:
+1. Exceute "npm install" in all directories (Root, API & Client)
+2. Execute "npm run dev" in root directory
+
+API Only:
 1. In terminal navigate to friasco-api directory
 2. Install packages with "npm install"
-3. To run the application "npm start" (API is now served on http://localhost:8000/ or port defined in dotenv, and terminate it via 'control + c')
+3. To run the application "npm start" _(API is now served on http://localhost:8000/ or port defined in dotenv, and terminate it via 'control + c')_
 4. To run unit tests "npm test" (can be buggy with a couple of test, executing "npm run lint-fix" normally solves it)
+
+Client Only:
+1. In terminal navigate to friasco-client directory
+2. Install packages with "npm install"
+3. To run the client "npm run dev" _(Client is now served on http://localhost:8001/, and terminate it via 'control + c')_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
