@@ -38,6 +38,8 @@ Learning project for Javascript related technologies
 
 - NodeJS
 - ExpressJS
+- ReactJS
+- Vite
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -76,7 +78,7 @@ Client Only:
 
 <!-- DOCUMENTATION -->
 ## Documentation
-- API: After starting API, you can access swagger via /api/v1/swagger
+- API: After starting API, you can access swagger via /v1/swagger
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
