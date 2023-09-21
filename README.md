@@ -66,7 +66,7 @@ API Only:
 1. In terminal navigate to friasco-api directory
 2. Install packages with "npm install"
 3. To run the application "npm start" _(API is now served on http://localhost:8000/ or port defined in dotenv, and terminate it via 'control + c')_
-4. To run unit tests "npm test" (can be buggy with a couple of test, executing "npm run lint-fix" normally solves it)
+4. To run tests "npm test" (can be buggy with a couple of tests, executing a "npm run test-info" normally solves it)
 
 Client Only:
 1. In terminal navigate to friasco-client directory
