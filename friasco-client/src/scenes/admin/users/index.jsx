@@ -3,8 +3,7 @@ import { Box, Typography, IconButton, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../../theme";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import EditIcon from "@mui/icons-material/Edit";
+import VerifiedUserOutlinedIcon from '@mui/icons-material/VerifiedUserOutlined';
 import DeleteIcon from "@mui/icons-material/Delete";
 import Header from "../../../components/Header";
 import CustomHideShowFormGridToolbar from "../../../components/CustomHideShowFormGridToolbar";
@@ -77,7 +76,7 @@ const Users = () => {
             borderRadius="4px"
           >
             {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-            {access === "user" && <LockOpenOutlinedIcon />}
+            {access === "user" && <VerifiedUserOutlinedIcon />}
             <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
               {access}
             </Typography>
