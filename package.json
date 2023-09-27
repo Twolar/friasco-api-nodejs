@@ -9,8 +9,11 @@
     "dev": "concurrently \"npm run api\" \"npm run client\"",
 
     "api-test": "npm test --prefix friasco-api",
+    "api-test-info": "npm run test-info --prefix friasco-api",
     "client-test": "",
+    "client-test-info": "",
     "test": "npm run api-test; npm run client-test",
+    "test-info": "npm run api-test-info; npm run client-test-info",
 
     "api-lint-fix": "npm run lint-fix --prefix friasco-api",
     "client-lint": "npm run lint --prefix friasco-client",
