@@ -1,0 +1,28 @@
+{
+  "name": "friasco",
+  "version": "1.0.0",
+  "description": "<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 --> <a name=\"readme-top\"></a> <!-- *** Thanks for checking out the Best-README-Template. If you have a suggestion *** that would make this better, please fork the repo and create a pull request *** or simply open an issue with the tag \"enhancement\". *** Don't forget to give the project a star! *** Thanks again! Now go create something AMAZING! :D -->",
+  "main": "index.js",
+  "scripts": {
+    "api": "npm start --prefix friasco-api",
+    "client": "npm run dev --prefix friasco-client",
+    "dev": "concurrently \"npm run api\" \"npm run client\"",
+
+    "api-test": "npm test --prefix friasco-api",
+    "api-test-info": "npm run test-info --prefix friasco-api",
+    "client-test": "",
+    "client-test-info": "",
+    "test": "npm run api-test; npm run client-test",
+    "test-info": "npm run api-test-info; npm run client-test-info",
+
+    "api-lint-fix": "npm run lint-fix --prefix friasco-api",
+    "client-lint": "npm run lint --prefix friasco-client",
+    "lint-fix": "npm run api-lint-fix; npm run client-lint"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
