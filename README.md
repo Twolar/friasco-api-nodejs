@@ -12,8 +12,6 @@
 <!-- PROJECT LOGO -->
 # FRIASCO-API-NODEJS
 
-Learning project for Javascript related technologies.
-
-ARCHIVED AS SWITCHING API TO NOW BE .NET API
+Learning project for Javascript/NodeJS related technologies.
 
 ---
