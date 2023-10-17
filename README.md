@@ -10,7 +10,7 @@
 
 
 <!-- PROJECT LOGO -->
-# FRIASCO
+# FRIASCO-API-NODEJS
 
 Learning project for Javascript related technologies.
 
